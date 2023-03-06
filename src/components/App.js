@@ -1,4 +1,3 @@
-import logo from '../images/logo.svg';
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import Modal from './Modal.js';
@@ -22,8 +21,8 @@ export default function App() {
 		const response = await fetch(url);
 		const jsonData = await response.json();
 		jsonData.results.forEach((eachJSONData, i) => {
-			eachJSONData.backdrop_path = `${process.env.REACT_APP_API_BASE_IMAGE_URL}/${eachJSONData.backdrop_path}`;
-			eachJSONData.poster_path = `${process.env.REACT_APP_API_BASE_IMAGE_URL}/${eachJSONData.poster_path}`;
+			// eachJSONData.backdrop_path = `${process.env.REACT_APP_API_BASE_IMAGE_URL}/${eachJSONData.backdrop_path}`;
+			// eachJSONData.poster_path = `${process.env.REACT_APP_API_BASE_IMAGE_URL}/${eachJSONData.poster_path}`;
 		});
 		setPhotos(jsonData.results);
 	}
@@ -40,7 +39,6 @@ export default function App() {
   return (
 		<>
 			<div className='header'>
-				<img src={logo} alt='Timescale' />
 				<div className='submit'>
 				  <input className='submit' type='search' placeholder='Search for a movie' ref={inputRef} onKeyDown={searchAPI}/>
 				</div>
@@ -52,7 +50,7 @@ export default function App() {
 							<li key={photo.id}>
 								<a href="#modal" className='container' onClick={() => openModal(index)} >
 									<span className='rating'>{photo.vote_average}</span>
-									<img className='img' src={photo.poster_path} width='400' height='650' />
+									<img className='img' src={process.env.REACT_APP_API_BASE_IMAGE_URL+'/'+photo.poster_path} height='500' />
 									<span className='title'>{photo.title}</span>
 								</a>
 							</li>
